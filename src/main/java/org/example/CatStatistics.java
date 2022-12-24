@@ -49,42 +49,27 @@ public class CatStatistics {
     }
 
     public static Map<String, List<Cat>> groupCatByFirstLetter (ArrayList<Cat> cats){
-//       String[] arrayCats = new String[cats.size()];
-//       List<String> list = new ArrayList<>();
-//        for (Cat cat: cats) {
-//            list.add(cat.getName());
-//        }
-//       list.toArray(arrayCats);
-//        System.out.println(Arrays.toString(arrayCats));
-//        Map<Character, List<String>> result = Arrays.stream(arrayCats).collect(Collectors.groupingBy(s->s.charAt(0), Collectors.toList()));
-//        result.forEach((k,v)-> System.out.println(k+"->"+v));
-//        result.entrySet().stream().sorted(Comparator.comparing(Map.Entry::getKey))
-//                .forEach(entry -> System.out.println(entry.getKey() + " -> " + entry.getValue()));
-        List<Cat> listCat = cats.stream().sorted((x,y)->x.getName().compareTo(y.getName()))
-                .collect(Collectors.toList());
-        System.out.println(listCat);
 
-        Map<Character, List<Cat>> catsCharAtGrouped =
-                listCat.stream().collect(Collectors.groupingBy(w -> w.getName().charAt(0)));
-        System.out.println("catsCharAtGrouped "+catsCharAtGrouped);
-
-        Map<String, List<Cat>> catsListGrouped =
-                cats.stream().collect(Collectors.groupingBy(w -> w.getName()));
-
-        System.out.println("catsListGrouped "+ catsListGrouped);
-        System.out.println(catsCharAtGrouped.get('М'));
-       Map<String, List<Cat>> newCats = new HashMap<>();
-        for (Cat cat: cats) {
-            if(cat.getName().charAt(0)==cat.getName().charAt(0)){           // через compareto метод
-                newCats.put(cat.getName(),new ArrayList<>());
-            }
-
+        Map<String, List<Cat>> catsListGrouped = new HashMap<>();
+        // группировка по первой букве
+        Map<Character, List<Cat>> catsCharAtGrouped = cats.stream().collect(Collectors.groupingBy(w -> w.getName().charAt(0)));
+        System.out.println("Cгруппированная Map "+catsCharAtGrouped);
+        // сортировка по возврастанию
+        // почитать как это работает
+        Map<Character, List<Cat>> map = new  TreeMap<Character, List<Cat>>(catsCharAtGrouped);
+        System.out.println("TreeMap "+map);
+        // получение значений и запись в новую Map
+        for(Map.Entry<Character, List<Cat>> entry: map.entrySet()) {
+            Character key = entry.getKey();
+            List<Cat> values = entry.getValue();
+           catsListGrouped.put(key.toString(),values);
         }
-        Map<String, List<Cat>> catsListGrouped1 = new HashMap<>(); // скопировать только value
-        catsCharAtGrouped.entrySet().stream().collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue));
-        System.out.println(catsCharAtGrouped);
+        System.out.println("return "+catsListGrouped);
+        // Почитать про entrySet
+        //catsCharAtGrouped.entrySet().stream().collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue));
 
-       return catsListGrouped;
+        return catsListGrouped;
+
     }
 
 }

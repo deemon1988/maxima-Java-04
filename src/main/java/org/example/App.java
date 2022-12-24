@@ -1,6 +1,12 @@
 package org.example;
 
+
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 public class App
 {
@@ -18,11 +24,15 @@ public class App
 
 
 
-       // CatStatistics.sortByNameAscending(cats);
+        CatStatistics.sortByNameAscending(cats);
        // CatStatistics.sortByWeightDescending(cats);
         //CatStatistics.removeFirstAndLast(cats);
         //CatStatistics.findFirstNonAngryCat(cats);
         //CatStatistics.getCommonWeight(cats, false);  // с помощью метода .reduce
         CatStatistics.groupCatByFirstLetter(cats);
+    Train train = new Train("s",1,1,1,"1",4,false);
+    train.toString();
+
+
     }
 }
